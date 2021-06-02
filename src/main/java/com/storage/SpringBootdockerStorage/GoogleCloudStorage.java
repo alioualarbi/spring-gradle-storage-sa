@@ -23,16 +23,31 @@ public class GoogleCloudStorage {
     private Bucket bucket;
 
     public static void main(String[] args) throws Exception {
-	
 
-	  String projectId = "YOUR_PROJECT_ID";
-          File credentialsPath = new File("/workspace/app/build/client_secrets.json");
-          
-          GoogleCredentials googleCloudStorage;
-          try (FileInputStream serviceAccountStream = new FileInputStream(credentialsPath)) {
-            googleCloudStorage = ServiceAccountCredentials.fromStream(serviceAccountStream);
-          }
+         GoogleCloudStorage googleCloudStorage =
+            new GoogleCloudStorage("/workspace/app/build/client_secrets.json", "<YOUR-PROJECT_ID>");
+
         
+        Bucket bucket = googleCloudStorage.getBucket("test-1-bucket");
+
+         //Save a simple string
+        BlobId blobId = googleCloudStorage.saveString("my-first-blob", "Hi there!", bucket);
+
+         //Get it by blob id this time
+        String value = googleCloudStorage.getString(blobId);
+         log.info("Read data: {}", value);
+
+        googleCloudStorage.updateString(blobId, "Bye now!");
+
+         //Get the string by blob name
+        value = googleCloudStorage.getString("my-first-blob");
+
+        log.info("Read modified data: {}", value);
+
+
+    }
+
+
     // Use path and project name
     private GoogleCloudStorage(String credentialsPath, String projectId) throws IOException {
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream(credentialsPath));
@@ -69,7 +84,7 @@ public class GoogleCloudStorage {
         Page<Blob> blobs = bucket.list();
         for (Blob blob: blobs.getValues()) {
             if (name.equals(blob.getName())) {
-                return new String(blob.getContent());
+                    return new String(blob.getContent());
             }
         }
         return "Blob not found";
