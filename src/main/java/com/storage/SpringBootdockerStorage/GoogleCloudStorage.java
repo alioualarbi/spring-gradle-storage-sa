@@ -25,7 +25,7 @@ public class GoogleCloudStorage {
     public static void main(String[] args) throws Exception {
 	
 
-	  String projectId = "alioua-service";
+	  String projectId = "YOUR_PROJECT_ID";
           File credentialsPath = new File("/workspace/app/build/client_secrets.json");
           //File googleCloudStorage = new File("client_secrets.json");
           // Load credentials from JSON key file. If you can't set the GOOGLE_APPLICATION_CREDENTIALS
