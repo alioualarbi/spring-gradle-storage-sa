@@ -27,41 +27,12 @@ public class GoogleCloudStorage {
 
 	  String projectId = "YOUR_PROJECT_ID";
           File credentialsPath = new File("/workspace/app/build/client_secrets.json");
-          //File googleCloudStorage = new File("client_secrets.json");
-          // Load credentials from JSON key file. If you can't set the GOOGLE_APPLICATION_CREDENTIALS
-          // environment variable, you can explicitly load the credentials file to construct the
-          // credentials.
+          
           GoogleCredentials googleCloudStorage;
           try (FileInputStream serviceAccountStream = new FileInputStream(credentialsPath)) {
             googleCloudStorage = ServiceAccountCredentials.fromStream(serviceAccountStream);
           }
-        // Use this variation to read the Google authorization JSON from the resources directory with a path
-        // and a project name.
-//         GoogleCloudStorage googleCloudStorage =
-  //          new GoogleCloudStorage("client_secrets.json", "alioua-service");
-
-        // Bucket require globally unique names, so you'll probably need to change this
-        //Bucket bucket = googleCloudStorage.getBucket("alioua-1-bucket");
-
-        // Save a simple string
-        //BlobId blobId = googleCloudStorage.saveString("my-first-blob", "Hi there!", bucket);
-
-        // Get it by blob id this time
-        //String value = googleCloudStorage.getString(blobId);
-
-        //log.info("Read data: {}", value);
-
-        //googleCloudStorage.updateString(blobId, "Bye now!");
-
-        // Get the string by blob name
-        //value = googleCloudStorage.getString("my-first-blob");
-
-        //log.info("Read modified data: {}", value);
-
-
-    }
-
-
+        
     // Use path and project name
     private GoogleCloudStorage(String credentialsPath, String projectId) throws IOException {
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream(credentialsPath));
